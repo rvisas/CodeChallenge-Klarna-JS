@@ -1,7 +1,7 @@
 ## Transactions-CodeChallenge
 Code challenge solved for a company specialized in online operations
 
-## Amount by category
+## QUESTION 1 - Amount by category
 Calculate the amount spent in a specific category within the specified time period
 
 ```js
