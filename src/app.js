@@ -13,7 +13,7 @@ const app = {
             && (trA.targetAccount === trB.targetAccount)
             && (trA.category === trB.category)
             && (trA.amount === trB.amount)
-            && (app.diffMinutes(trA.time, trB.time) < 1)) ? true : false;
+            && (app.diffMinutes(trA.time, trB.time) < 1));
     },
 
     diffMinutes: (dateTimeA, dateTimeB) => {
