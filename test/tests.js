@@ -1,22 +1,193 @@
-let assert = require("chai").assert;
+const app = require('../src/app');
+const assert = require("chai").assert;
+
+describe("getBalanceByCategoryInPeriod()", function () {
+    it("returns 0 if there are no transactions", function () {
+        assert.equal(
+            app.getBalanceByCategoryInPeriod(
+                [],
+                "groceries",
+                new Date("2019-03-01"),
+                new Date("2019-03-31")
+            ),
+            0
+        );
+    });
+
+    it("returns calculated balance for 'groceries' category from 2019-07-01 to 2019-07-31", function () {
+        const transactions = [
+            {
+                id: 01,
+                sourceAccount: 'my_account',
+                targetAccount: 'coffee_shop',
+                amount: -100,
+                category: 'groceries',
+                time: '2019-07-01T00:00:01Z'
+            },
+            {
+                id: 02,
+                sourceAccount: 'my_account',
+                targetAccount: 'restaurant',
+                amount: -50,
+                category: 'eating_out',
+                time: '2019-07-03T10:27:00Z'
+            },
+            {
+                id: 03,
+                sourceAccount: 'klarna',
+                targetAccount: 'my_account',
+                amount: 25000,
+                category: 'salary',
+                time: '2019-07-01T10:27:00Z'
+            },
+            {
+                id: 04,
+                sourceAccount: 'mini_market',
+                targetAccount: 'my_account',
+                amount: 200,
+                category: 'groceries',
+                time: '2019-07-31T10:27:00Z'
+            },
+            {
+                id: 05,
+                sourceAccount: 'my_account',
+                targetAccount: 'mini_market',
+                amount: -75,
+                category: 'groceries',
+                time: '2019-06-30T10:27:00Z'
+            }
+        ];
+
+        assert.equal(
+            app.getBalanceByCategoryInPeriod(
+                transactions,
+                "groceries",
+                new Date("2019-07-01T00:00:00Z"),
+                new Date("2019-07-31T23:59:59Z")
+            ),
+            100
+        );
+    });
+
+    it("returns calculated balance for 'groceries' category from and including 2019-07-01", function () {
+        const transactions = [
+            {
+                id: 01,
+                sourceAccount: 'my_account',
+                targetAccount: 'coffee_shop',
+                amount: -100,
+                category: 'groceries',
+                time: '2019-07-01T00:00:00Z'
+            },
+            {
+                id: 02,
+                sourceAccount: 'my_account',
+                targetAccount: 'restaurant',
+                amount: -50,
+                category: 'groceries',
+                time: '2019-07-03T00:00:01Z'
+            },
+            {
+                id: 03,
+                sourceAccount: 'klarna',
+                targetAccount: 'my_account',
+                amount: 25000,
+                category: 'groceries',
+                time: '2019-06-30T23:59:59Z'
+            },
+            {
+                id: 04,
+                sourceAccount: 'mini_market',
+                targetAccount: 'my_account',
+                amount: 200,
+                category: 'groceries',
+                time: '2019-07-31T10:27:00Z'
+            },
+            {
+                id: 05,
+                sourceAccount: 'my_account',
+                targetAccount: 'mini_market',
+                amount: -75,
+                category: 'groceries',
+                time: '2019-08-01T10:27:00Z'
+            }
+        ];
+
+        assert.equal(
+            app.getBalanceByCategoryInPeriod(
+                transactions,
+                "groceries",
+                new Date("2019-07-01T00:00:00Z"),
+                new Date("2019-07-31T23:59:59Z")
+            ),
+            50
+        );
+    });
+
+    it("returns calculated balance for 'groceries' category until and not including 2019-07-31", function () {
+        const transactions = [
+            {
+                id: 01,
+                sourceAccount: 'my_account',
+                targetAccount: 'coffee_shop',
+                amount: -100,
+                category: 'groceries',
+                time: '2019-07-31T00:00:00Z'
+            },
+            {
+                id: 02,
+                sourceAccount: 'my_account',
+                targetAccount: 'restaurant',
+                amount: -50,
+                category: 'groceries',
+                time: '2019-07-31T00:00:01Z'
+            },
+            {
+                id: 03,
+                sourceAccount: 'klarna',
+                targetAccount: 'my_account',
+                amount: 25000,
+                category: 'groceries',
+                time: '2019-06-30T23:59:59Z'
+            },
+            {
+                id: 04,
+                sourceAccount: 'mini_market',
+                targetAccount: 'my_account',
+                amount: 200,
+                category: 'groceries',
+                time: '2019-07-31T10:27:00Z'
+            },
+            {
+                id: 05,
+                sourceAccount: 'my_account',
+                targetAccount: 'mini_market',
+                amount: -75,
+                category: 'groceries',
+                time: '2019-07-30T10:27:00Z'
+            }
+        ];
+
+        assert.equal(
+            app.getBalanceByCategoryInPeriod(
+                transactions,
+                "groceries",
+                new Date("2019-07-01T00:00:00Z"),
+                new Date("2019-07-31T00:00:00Z")
+            ),
+            -75
+        );
+    });
+});
 
 describe("findDuplicateTransactions()", function () {
     it("returns empty array if there are no transactions", function () {
-        assert.deepEqual(findDuplicateTransactions([]), []);
+        assert.deepEqual(app.findDuplicateTransactions([]), []);
     });
 
     it("returns empty array if there is only one transaction", function () {
-        const transactions = [
-            {
-                id: 3,
-                sourceAccount: 'A',
-                targetAccount: 'B',
-                amount: 100,
-                category: 'eating_out',
-                time: '2018-03-02T10:34:30.000Z'
-            }
-        ];
-        assert.deepEqual(findDuplicateTransactions([]), []);
+        const transactions = [];
+        assert.deepEqual(app.findDuplicateTransactions(transactions), []);
     });
 
     it("returns empty array if the list of transactions has no duplicates", function () {
@@ -71,7 +242,7 @@ describe("findDuplicateTransactions()", function () {
             }
         ];
 
-        assert.deepEqual(findDuplicateTransactions(transactions), []);
+        assert.deepEqual(app.findDuplicateTransactions(transactions), []);
     });
 
     it("returns groups of duplicates for list of transactions", function () {
@@ -173,7 +344,7 @@ describe("findDuplicateTransactions()", function () {
             ]
         ];
 
-        assert.deepEqual(findDuplicateTransactions(transactions), result);
+        assert.deepEqual(app.findDuplicateTransactions(transactions), result);
     });
 
     it("returns list of lists of duplicated transactions", () => {
@@ -569,6 +740,6 @@ describe("findDuplicateTransactions()", function () {
             ]
         ];
 
-        assert.deepEqual(findDuplicateTransactions(transactions), result);
+        assert.deepEqual(app.findDuplicateTransactions(transactions), result);
     });
 });
