@@ -1,7 +1,4 @@
-## Transactions
-Code challenge solved for a company specialized in online operations
-
-## QUESTION 1 - Amount by category
+## Question 1 - Amount by category
 Calculate the amount spent in a specific category within the specified time period
 
 ```js
@@ -33,7 +30,7 @@ Negative number means money spent
 }
 ``` 
 
-## QUESTION 2 - Duplicated Transactions
+## Question 2 - Duplicated Transactions
 
 Sometimes when a customer is charged, there is a duplicate transaction created. We need to find those transactions so that they can be dealt with. Everything about the transaction should be identical, except the transaction id and the time at which it occurred, as there can be up to a minute delay.
 
