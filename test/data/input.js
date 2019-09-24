@@ -326,3 +326,5 @@ const transactions = [{
     category: 'eating_out',
     time: '2018-04-01T10:24:40.000Z'
 }];
+
+module.exports = transactions;

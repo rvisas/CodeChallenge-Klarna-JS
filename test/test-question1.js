@@ -1,4 +1,6 @@
-let assert = require("chai").assert;
+const app = require('../src/app');
+const expect = require('chai').expect;
+const assert = require("chai").assert;
 
 describe("getBalanceByCategoryInPeriod()", function () {
     it("returns 0 if there are no transactions", function () {
