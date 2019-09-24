@@ -1,13 +1,13 @@
 {
   "name": "codechallenge-klarna-js",
   "version": "1.0.0",
-  "description": "solutions for questions",
+  "description": "Solutions for Klarna questions based on JS",
   "main": "index.js",
   "directories": {
     "test": "test"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha ./test/tests.js"
   },
   "repository": {
     "type": "git",
