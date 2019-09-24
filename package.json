@@ -1,0 +1,26 @@
+{
+  "name": "codechallenge-klarna-js",
+  "version": "1.0.0",
+  "description": "solutions for questions",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rvisas/CodeChallenge-Klarna-JS.git"
+  },
+  "author": "Ronny Visa",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rvisas/CodeChallenge-Klarna-JS/issues"
+  },
+  "homepage": "https://github.com/rvisas/CodeChallenge-Klarna-JS#readme",
+  "dependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^6.2.0"
+  }
+}
