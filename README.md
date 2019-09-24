@@ -1,4 +1,4 @@
-## Transactions-CodeChallenge
+## Transactions
 Code challenge solved for a company specialized in online operations
 
 ## QUESTION 1 - Amount by category
